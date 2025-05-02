@@ -53,7 +53,7 @@ A fullstack application for searching and securely displaying media items from I
 
    ```bash
    git clone https://github.com/mumar090/imago-media-search.git
-   cd imago-media-search
+   cd imago_search
    ```
 
 2. **Install Python dependencies:**
@@ -104,12 +104,12 @@ npm run dev:all
 Create a `.env` file in the `backend/` directory with the following content:
 
 ```dotenv
-SECRET_KEY = "supersecretkeydontshare123"
-ES_HOST = "https://5.75.227.63:9200"
-ES_USER = "elastic"
-ES_PASSWORD = "rQQtbktwzFqAJS1h8YjP"
+SECRET_KEY = "your-key"
+ES_HOST = "your-ES-host"
+ES_USER = "your-username"
+ES_PASSWORD = "your-password"
 ES_INDEX = "imago"
-BASE_URL = "https://www.imago-images.de/bild"
+BASE_URL = "your-base-url"
 VERIFY_CERTS = False
 FRONTEND_URL = "http://localhost:5173"
 ```
