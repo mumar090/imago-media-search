@@ -52,7 +52,7 @@ A fullstack application for searching and securely displaying media items from I
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/imago-media-search
+   git clone https://github.com/mumar090/imago-media-search.git
    cd imago-media-search
    ```
 
