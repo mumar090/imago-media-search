@@ -3,24 +3,20 @@ from fastapi.responses import RedirectResponse
 from backend.config.config import settings
 from backend.models.models import MediaSearchRequest, MediaSearchResponse
 from backend.services.media_search_service import MediaService
-from backend.repositories.elastic_media_repository import ElasticsearchRepository
+from backend.repositories.media_repository import ElasticsearchRepository
 from backend.utils.security import generate_token, decode_token
 
 router = APIRouter()
 
 search_service = MediaService(ElasticsearchRepository())
 
-@router.get("/")
-def root():
-    return {"message": "IMAGO Media Search API"}
-
 @router.post("/search", response_model=MediaSearchResponse)
 def search_media(request: MediaSearchRequest):
     try:
-        documents = search_service.search(keyword=request.keyword, db_filter=request.db_filter)
-        for doc in documents:
+        response = search_service.search(request=request)
+        for doc in response.results:
             doc.thumbnail_url = f"/thumbnail/{generate_token(doc.db, doc.media_id)}"
-        return MediaSearchResponse(results=documents)
+        return MediaSearchResponse(results=response.results)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

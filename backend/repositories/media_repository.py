@@ -4,12 +4,12 @@ from typing import List
 import logging, urllib3
 
 from backend.config.config import settings
-from backend.repositories.media_repository_interface import BaseMediaRepository
+from backend.repositories.media_repository_interface import MediaRepository
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 logger = logging.getLogger(__name__)
 
-class ElasticsearchRepository(BaseMediaRepository):
+class ElasticsearchRepository(MediaRepository):
     def __init__(self):
         try:
             self.client = Elasticsearch(

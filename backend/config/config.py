@@ -5,7 +5,7 @@ import os
 load_dotenv()  # load variables from .env
 
 class Settings(BaseSettings):
-    SECRET_KEY: str = os.getenv("SECRET_KEY")
+    SECRET_KEY: str = os.environ.get("SECRET_KEY")
     ES_HOST: str = os.getenv("ES_HOST")
     ES_USER: str = os.getenv("ES_USER")
     ES_PASSWORD: str = os.getenv("ES_PASSWORD")

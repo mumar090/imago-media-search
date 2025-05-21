@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [dbFilter, setDbFilter] = useState(['st', 'sp']);
+  const [dbFilter, setDbFilter] = useState(['stock', 'sport']);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 

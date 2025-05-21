@@ -1,15 +1,17 @@
-from typing import List
-from backend.models.models import MediaItem
+#from typing import List
+from backend.models.models import MediaSearchRequest, MediaItem, MediaSearchResponse
 from backend.utils.security import generate_token
+from backend.repositories.media_repository import ElasticsearchRepository
 
 class MediaService:
-    def __init__(self, media_repository):
+    def __init__(self, media_repository:ElasticsearchRepository):
         self.repo = media_repository
 
-    def search(self, keyword: str = None, db_filter: List[str] = []) -> List[MediaItem]:
-        results = self.repo.search_media(keyword, db_filter)
+    def search(self, request:MediaSearchRequest) -> MediaSearchResponse:
+        results = self.repo.search_media(request.keyword, request.db_filter)
+        hits = results.get("hits", {}).get("hits", [])
         items = []
-        for hit in results.get("hits", {}).get("hits", []):
+        for hit in hits:
             src = hit.get("_source", {})
             media_id = src.get("bildnummer")
             db = src.get("db")
@@ -27,4 +29,5 @@ class MediaService:
                 description=src.get("suchtext"),
                 thumbnail_url=thumb_url
             ))
-        return items
+
+        return MediaSearchResponse(results=items)
